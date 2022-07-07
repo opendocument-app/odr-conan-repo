@@ -98,7 +98,7 @@ class Pdf2htmlEXConan(ConanFile):
             del self.options.fPIC
 
     def source(self):
-        tools.get(url="https://github.com/opendocument-app/pdf2htmlEX/archive/refs/heads/conan.tar.g",
+        tools.get(url="https://github.com/opendocument-app/pdf2htmlEX/archive/refs/heads/conan.tar.gz",
                   destination=self._source_subfolder, strip_root=True)
 
     def _configure_cmake(self):
