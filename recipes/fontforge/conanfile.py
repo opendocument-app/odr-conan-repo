@@ -95,14 +95,19 @@ class FontForgeConan(ConanFile):
     def _patch_sources(self):
         tools.patch(patch_file="patches/0001-fix-cmake-paths.patch", base_path=self._source_subfolder)
         tools.patch(patch_file="patches/0002-fix-cmake-install.patch", base_path=self._source_subfolder)
-        # disable building desktop
-        tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
-            "add_subdirectory(desktop)",
-            "#add_subdirectory(desktop)")
         # disable building fontforgeexe
         tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
             "add_subdirectory(fontforgeexe)",
             "#add_subdirectory(fontforgeexe)")
+        # TODO gettext somehow not works on macos
+        # disable building desktop
+        tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
+            "add_subdirectory(desktop)",
+            "#add_subdirectory(desktop)")
+        # disable building po
+        tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
+            "add_subdirectory(po)",
+            "#add_subdirectory(po)")
 
     def _configure_cmake(self):
         if self._cmake:
