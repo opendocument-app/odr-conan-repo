@@ -238,6 +238,8 @@ class PopplerConan(ConanFile):
                     base_path=self._source_subfolder)
         tools.patch(patch_file="patches/0003-fix-windows-INT32.patch",
                     base_path=self._source_subfolder)
+        tools.patch(patch_file="patches/0004-polyfill-windows-strndup.patch",
+                    base_path=self._source_subfolder)
         tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
             r"find_package(Cairo",
             r"find_package(cairo")

@@ -1,0 +1,22 @@
+diff --git a/poppler/GlobalParams.cc b/poppler/GlobalParams.cc
+index 81711ea3..d5c795cc 100644
+--- a/poppler/GlobalParams.cc
++++ b/poppler/GlobalParams.cc
+@@ -88,6 +88,17 @@
+ #include "UnicodeMapTables.h"
+ #include "UnicodeMapFuncs.h"
+ 
++#if defined(_WIN32) || defined(_WIN64)
++// strndup() is not available on Windows
++char *strndup( const char *s1, size_t n)
++{
++    char *copy= (char*)malloc( n+1 );
++    memcpy( copy, s1, n );
++    copy[n] = 0;
++    return copy;
++};
++#endif
++
+ //------------------------------------------------------------------------
+ 
+ #define cidToUnicodeCacheSize     4
