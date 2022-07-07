@@ -95,6 +95,7 @@ class FontForgeConan(ConanFile):
     def _patch_sources(self):
         tools.patch(patch_file="patches/0001-fix-cmake-paths.patch", base_path=self._source_subfolder)
         tools.patch(patch_file="patches/0002-fix-cmake-install.patch", base_path=self._source_subfolder)
+        tools.patch(patch_file="patches/0003-fix-visual-studio-basetsd.h-libjpeg-INT32.patch", base_path=self._source_subfolder)
         # disable building fontforgeexe
         tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
             "add_subdirectory(fontforgeexe)",
