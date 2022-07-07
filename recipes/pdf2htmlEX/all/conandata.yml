@@ -1,0 +1,4 @@
+sources:
+  "0.18.8-rc1":
+    url: https://github.com/opendocument-app/pdf2htmlEX/archive/refs/heads/conan.tar.gz
+patches: []

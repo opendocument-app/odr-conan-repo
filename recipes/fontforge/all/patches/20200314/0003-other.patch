@@ -1,0 +1,57 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 556adf96b..a0e2cfc05 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -98,7 +98,7 @@ enable_sanitizer("${ENABLE_SANITIZER}")
+ # Note: When adding a dependency, ensure it has an imported target (wherever appropriate) 
+ find_package(Freetype 2.3.7 REQUIRED)
+ find_package(Gettext REQUIRED)
+-find_package_with_target(Intl REQUIRED)
++find_package(libgettext REQUIRED)
+ find_package(GLIB 2.6 REQUIRED COMPONENTS gio)
+ find_package(Iconv REQUIRED)
+ find_package(LibXml2 REQUIRED)
+@@ -153,7 +153,6 @@ add_subdirectory(fontforge)
+ if(ENABLE_GUI)
+   add_subdirectory(gdraw)
+ endif()
+-add_subdirectory(fontforgeexe)
+ if(ENABLE_PYTHON_EXTENSION)
+   if(ENABLE_PYTHON_SCRIPTING_RESULT AND BUILD_SHARED_LIBS)
+     set(ENABLE_PYTHON_EXTENSION_RESULT ON)
+@@ -167,22 +166,15 @@ if(ENABLE_PYTHON_EXTENSION)
+     add_subdirectory(pyhook)
+   endif()
+ endif()
+-add_subdirectory(contrib)
+ if(ENABLE_PYTHON_SCRIPTING_RESULT)
+   add_subdirectory(pycontrib)
+ endif()
+ if(BUILD_TESTING)
+   add_subdirectory(tests)
+ endif()
+-add_subdirectory(desktop)
+ if(ENABLE_DOCS AND Sphinx_FOUND)
+   add_subdirectory(doc)
+ endif()
+-add_subdirectory(po)
+-add_subdirectory(share)
+-if(APPLE)
+-  add_subdirectory(osx)
+-endif()
+ 
+ setup_cpack()
+ print_build_options()
+diff --git a/fontforge/CMakeLists.txt b/fontforge/CMakeLists.txt
+index f4d0e2cc4..91b979e25 100644
+--- a/fontforge/CMakeLists.txt
++++ b/fontforge/CMakeLists.txt
+@@ -230,7 +230,7 @@ target_link_libraries(fontforge
+     Freetype::Freetype
+     LibXml2::LibXml2
+     GLIB::GLIB
+-    Intl::Intl
++    libgettext::libgettext
+   PRIVATE
+     MathLib::MathLib
+     Iconv::Iconv
