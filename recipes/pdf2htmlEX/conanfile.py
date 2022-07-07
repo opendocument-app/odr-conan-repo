@@ -35,7 +35,7 @@ class Pdf2htmlEXConan(ConanFile):
         "poppler:shared": False,
         "poppler*:fPIC": True,
         "poppler:cpp": False,
-        "poppler:fontconfiguration": "generic",
+        "poppler:fontconfiguration": "fontconfig",
         "poppler:with_cairo": True,
         "poppler:splash": True,
         "poppler:with_glib": True,

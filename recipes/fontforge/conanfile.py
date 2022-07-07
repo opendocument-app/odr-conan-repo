@@ -6,7 +6,7 @@ required_conan_version = ">=1.33.0"
 
 class FontForgeConan(ConanFile):
     name = "fontforge"
-    version = "20201107"
+    version = "20200314"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/fontforge/fontforge/"
     description = "Free (libre) font editor for Windows, Mac OS X and GNU+Linux"
@@ -71,7 +71,6 @@ class FontForgeConan(ConanFile):
         self.requires("pango/1.49.3")
         self.requires("cairo/1.17.2")
         self.requires("glib/2.70.1")
-        self.requires("libgettext/0.20.1")
         if self.options.get_safe("with_jpeg"):
             self.requires("libjpeg/9d")
         if self.options.get_safe("with_tiff"):
@@ -89,13 +88,17 @@ class FontForgeConan(ConanFile):
         self.build_requires("gettext/0.21")
 
     def source(self):
-        tools.get(url="https://github.com/fontforge/fontforge/archive/refs/tags/20201107.tar.gz",
-                  sha1="c4372106460089c0495558abc8e1d6436d2f9bf2",
+        tools.get(url="https://github.com/fontforge/fontforge/archive/refs/tags/20200314.tar.gz",
+                  sha1="cca54440dd47414055507a5007cd9b663699f3e2",
                   destination=self._source_subfolder, strip_root=True)
 
     def _patch_sources(self):
         tools.patch(patch_file="patches/20201107/0001-fix-cmake-paths.patch", base_path=self._source_subfolder)
         tools.patch(patch_file="patches/20201107/0002-fix-cmake-install.patch", base_path=self._source_subfolder)
+        # disable building fontforgeexe
+        tools.replace_in_file(os.path.join(self._source_subfolder, "CMakeLists.txt"),
+            "add_subdirectory(fontforgeexe)",
+            "#add_subdirectory(fontforgeexe)")
 
     def _configure_cmake(self):
         if self._cmake:

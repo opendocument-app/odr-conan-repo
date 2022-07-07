@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 5d94d5fc..cba64818 100644
+index 5d94d5fc..ad6f0b0e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -2,7 +2,7 @@ project(poppler)
@@ -20,18 +20,16 @@ index 5d94d5fc..cba64818 100644
  if(NOT (EXISTS ${TESTDATADIR} AND EXISTS ${TESTDATADIR}/test-poppler.c))
    message(WARNING "
   No test data found in $testdatadir.
-@@ -160,16 +160,16 @@ if (ENABLE_QT5)
+@@ -160,7 +160,7 @@ if (ENABLE_QT5)
    endif()
  endif()
  
 -macro_optional_find_package(Cairo ${CAIRO_VERSION})
--if(CAIRO_FOUND)
--  set(HAVE_CAIRO ${CAIRO_FOUND})
-+find_package(cairo ${CAIRO_VERSION})
-+if(cairo_FOUND)
-+  set(HAVE_CAIRO ${cairo_FOUND})
++find_package(Cairo ${CAIRO_VERSION})
+ if(CAIRO_FOUND)
+   set(HAVE_CAIRO ${CAIRO_FOUND})
    set(CAIRO_FEATURE "#define POPPLER_HAS_CAIRO 1")
-   set(CAIRO_REQ "cairo")
+@@ -168,8 +168,8 @@ if(CAIRO_FOUND)
    set(POPPLER_GLIB_DISABLE_DEPRECATED "")
    set(POPPLER_GLIB_DISABLE_SINGLE_INCLUDES "")
    if(ENABLE_GLIB)

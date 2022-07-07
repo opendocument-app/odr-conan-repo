@@ -1,8 +1,8 @@
 diff --git a/fontforge/CMakeLists.txt b/fontforge/CMakeLists.txt
-index 67f91605c..6888dc03c 100644
+index f4d0e2cc4..477e95d76 100644
 --- a/fontforge/CMakeLists.txt
 +++ b/fontforge/CMakeLists.txt
-@@ -239,6 +239,8 @@ target_link_libraries(fontforge
+@@ -237,6 +237,8 @@ target_link_libraries(fontforge
      ZLIB::ZLIB
  )
  
@@ -11,12 +11,13 @@ index 67f91605c..6888dc03c 100644
  if(APPLE)
    target_link_libraries(fontforge
      PRIVATE
-@@ -272,10 +274,8 @@ else()
+@@ -269,11 +271,8 @@ else()
+   target_link_libraries(fontforge PRIVATE gunicode gutils)
  endif()
  
- # No dev package -> no need to install if static
+-# No dev package -> no need to install if static
 -if(BUILD_SHARED_LIBS)
--  if(WIN32 OR CYGWIN)
+-  if(WIN32)
 -    install(TARGETS fontforge RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 -  else()
 -    install(TARGETS fontforge RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
