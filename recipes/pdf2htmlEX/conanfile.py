@@ -72,6 +72,9 @@ class Pdf2htmlEXConan(ConanFile):
         "cairo/1.17.2",
         "glib/2.65.3",
         "freetype/2.11.1",
+
+        # resolve version conflicts
+        "zlib/1.2.12",
     ]
 
     exports_sources = ["CMakeLists.txt", "patches/*"]
@@ -97,9 +100,6 @@ class Pdf2htmlEXConan(ConanFile):
     def source(self):
         tools.get(url="https://github.com/opendocument-app/pdf2htmlEX/archive/refs/heads/conan.tar.g",
                   destination=self._source_subfolder, strip_root=True)
-
-    def _patch_sources(self):
-        pass # TODO
 
     def _configure_cmake(self):
         if self._cmake:
