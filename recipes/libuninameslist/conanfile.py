@@ -1,16 +1,16 @@
 from conans import ConanFile, tools, AutoToolsBuildEnvironment
-import os
 
 required_conan_version = ">=1.33.0"
 
 
-class SpiroConan(ConanFile):
-    name = "spiro"
+class LibuninameslistConan(ConanFile):
+    name = "libuninameslist"
+    version = "20211114"
     url = "https://github.com/conan-io/conan-center-index"
-    homepage = "https://github.com/fontforge/libspiro/"
-    description = "Spiro is the creation of Raph Levien. It simplifies the drawing of beautiful curves."
-    topics = "font"
-    license = "GPL-3.0"
+    homepage = "https://github.com/fontforge/libuninameslist/"
+    description = "A library with a large (sparse) array mapping each unicode code point to the annotation data for it provided in http://www.unicode.org/Public/UNIDATA/NamesList.txt"
+    topics = "unicode"
+    license = "GPL-2.0"
 
     settings = "os", "arch", "compiler", "build_type"
     options = {
@@ -46,7 +46,8 @@ class SpiroConan(ConanFile):
             del self.options.fPIC
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version],
+        tools.get(url="https://github.com/fontforge/libuninameslist/archive/refs/tags/20211114.tar.gz",
+                  sha1="5550669f9dc278d9536b20cc25f8cf9769e13ba2",
                   destination=self._source_subfolder, strip_root=True)
 
     def _patch_sources(self):

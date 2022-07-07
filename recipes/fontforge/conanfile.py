@@ -6,6 +6,7 @@ required_conan_version = ">=1.33.0"
 
 class FontForgeConan(ConanFile):
     name = "fontforge"
+    version = "20201107"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/fontforge/fontforge/"
     description = "Free (libre) font editor for Windows, Mac OS X and GNU+Linux"
@@ -65,7 +66,6 @@ class FontForgeConan(ConanFile):
             del self.options.fPIC
 
     def requirements(self):
-        "spiro/20200505", "libuninameslist/20211114"
         self.requires("freetype/2.10.4")
         self.requires("libxml2/2.9.12")
         self.requires("pango/1.49.3")
@@ -89,12 +89,13 @@ class FontForgeConan(ConanFile):
         self.build_requires("gettext/0.21")
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version],
+        tools.get(url="https://github.com/fontforge/fontforge/archive/refs/tags/20201107.tar.gz",
+                  sha1="c4372106460089c0495558abc8e1d6436d2f9bf2",
                   destination=self._source_subfolder, strip_root=True)
 
     def _patch_sources(self):
-        for patch in self.conan_data.get("patches", {}).get(self.version, []):
-            tools.patch(**patch)
+        tools.patch(patch_file="patches/20201107/0001-fix-cmake-paths.patch", base_path=self._source_subfolder)
+        tools.patch(patch_file="patches/20201107/0002-fix-cmake-install.patch", base_path=self._source_subfolder)
 
     def _configure_cmake(self):
         if self._cmake:

@@ -1,3 +1,4 @@
+from importlib_metadata import version
 from conans import CMake, ConanFile, tools
 from conans.errors import ConanInvalidConfiguration
 import os
@@ -7,6 +8,7 @@ required_conan_version = ">=1.33.0"
 
 class PopplerConan(ConanFile):
     name = "poppler"
+    version = "0.89.0"
     description = "Poppler is a PDF rendering library based on the xpdf-3.0 code base"
     homepage = "https://poppler.freedesktop.org/"
     topics = ("conan", "poppler", "pdf", "rendering")
@@ -152,7 +154,8 @@ class PopplerConan(ConanFile):
         self.build_requires("pkgconf/1.7.4")
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version],
+        tools.get(url="https://poppler.freedesktop.org/poppler-0.89.0.tar.xz",
+                  sha1="0fbb81a59b630387953064a2f8b5d6f0d4f3c70e",
                   destination=self._source_subfolder, strip_root=True)
 
     @property
@@ -230,8 +233,8 @@ class PopplerConan(ConanFile):
         return self._cmake
 
     def _patch_sources(self):
-        for patchdata in self.conan_data["patches"][self.version]:
-            tools.patch(**patchdata)
+        tools.patch(patch_file="patches/0001-fix-cmake-paths.patch",
+                    base_path=self._source_subfolder)
         if tools.Version(self.version) < "21.07.0" and not self.options.shared:
             poppler_global = os.path.join(self._source_subfolder, "cpp", "poppler-global.h")
             tools.replace_in_file(poppler_global, "__declspec(dllimport)", "")

@@ -6,6 +6,7 @@ required_conan_version = ">=1.33.0"
 
 class Pdf2htmlEXConan(ConanFile):
     name = "pdf2htmlEX"
+    version = "0.18.8-rc1"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/pdf2htmlEX/pdf2htmlEX/"
     description = "Convert PDF to HTML without losing text or format."
@@ -94,12 +95,11 @@ class Pdf2htmlEXConan(ConanFile):
             del self.options.fPIC
 
     def source(self):
-        tools.get(**self.conan_data["sources"][self.version],
+        tools.get(url="https://github.com/opendocument-app/pdf2htmlEX/archive/refs/heads/conan.tar.g",
                   destination=self._source_subfolder, strip_root=True)
 
     def _patch_sources(self):
-        for patch in self.conan_data.get("patches", {}).get(self.version, []):
-            tools.patch(**patch)
+        pass # TODO
 
     def _configure_cmake(self):
         if self._cmake:
