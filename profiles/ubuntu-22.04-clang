@@ -8,5 +8,8 @@ compiler.version=12
 compiler.libcxx=libstdc++
 build_type=Release
 [options]
+[conf]
 [build_requires]
 [env]
+CC=clang
+CXX=clang++
