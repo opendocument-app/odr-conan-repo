@@ -12,3 +12,4 @@ build_type=Release
 [conf]
 [build_requires]
 [env]
+CONAN_CMAKE_TOOLCHAIN_FILE=/home/runner/work/odr-conan-repo/odr-conan-repo/resources/android-toolchain.cmake
