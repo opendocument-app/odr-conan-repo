@@ -24,7 +24,7 @@ jobs:
           python-version: 3.8
       - run: pip install conan
 
-      - name: setup odr conan repo
+      - name: conan setup
         run: |
           conan remote remove conancenter
           conan remote add odr-conan-repo https://odr.jfrog.io/artifactory/api/conan/odr-conan
@@ -32,7 +32,13 @@ jobs:
           conan config set general.revisions_enabled=1
           conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
           conan profile new default --detect
-          mv profiles/${{ matrix.config.profile }} .conan/profiles/default
+
+      - name: conan profile
+        if: startsWith(matrix.config.os, 'ubuntu') or startsWith(matrix.config.os, 'macos')
+        run: cp profiles/${{ matrix.config.profile }} ~/.conan/profiles/default
+      - name: conan profile
+        if: startsWith(matrix.config.os, 'windows')
+        run: cp profiles/${{ matrix.config.profile }} C:/Users/runneradmin/.conan/profiles/default
 
       - name: cache
         uses: actions/cache@v3
