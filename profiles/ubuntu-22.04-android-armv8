@@ -5,11 +5,11 @@ os_build=Linux
 arch=armv8
 arch_build=x86_64
 compiler=clang
-compiler.version=8
+compiler.version=12
 compiler.libcxx=libc++
 build_type=Release
 [options]
 [conf]
 [build_requires]
 [env]
-CONAN_CMAKE_TOOLCHAIN_FILE=/home/runner/work/odr-conan-repo/odr-conan-repo/resources/android-toolchain.cmake
+CONAN_CMAKE_TOOLCHAIN_FILE=/home/runner/work/odr-conan-repo/odr-conan-repo/resources/android-toolchain-armv8.cmake
