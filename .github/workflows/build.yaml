@@ -16,7 +16,7 @@ jobs:
           - { os: windows-2019 }
     steps:
       - name: set up python 3.8
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: 3.8
       - run: pip install conan
@@ -29,8 +29,18 @@ jobs:
           conan config set general.revisions_enabled=1
           conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
 
+      - name: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.conan/data
+            C:/Users/runneradmin/.conan/data
+          key: ${{ matrix.config.os }}-${{ matrix.config.cxx }}-rev17
+          restore-keys: |
+            ${{ matrix.config.os }}-${{ matrix.config.cxx }}-
+
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - run: conan export recipes/fontforge/conanfile.py
       - run: conan export recipes/libuninameslist/conanfile.py
@@ -38,14 +48,6 @@ jobs:
       - run: conan export recipes/poppler/conanfile.py
       - run: conan export recipes/spiro/conanfile.py
 
-      - run: conan create --build=missing recipes/fontforge/conanfile.py
-      - run: conan create --build=missing recipes/libuninameslist/conanfile.py
       - run: conan create --build=missing recipes/pdf2htmlEX/conanfile.py
-      - run: conan create --build=missing recipes/poppler/conanfile.py
-      - run: conan create --build=missing recipes/spiro/conanfile.py
 
-      - run: conan upload fontforge -r odr-conan-repo -c
-      - run: conan upload libuninameslist -r odr-conan-repo -c
       - run: conan upload pdf2htmlEX -r odr-conan-repo -c
-      - run: conan upload poppler -r odr-conan-repo -c
-      - run: conan upload spiro -r odr-conan-repo -c

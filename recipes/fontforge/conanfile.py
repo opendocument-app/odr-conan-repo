@@ -84,9 +84,6 @@ class FontForgeConan(ConanFile):
             self.requires("spiro/20200505")
         if self.options.get_safe("with_libuninameslist"):
             self.requires("libuninameslist/20211114")
-        
-        # resolve version conflicts
-        self.requires("zlib/1.2.12")
     
     def build_requirements(self):
         self.build_requires("gettext/0.21")
