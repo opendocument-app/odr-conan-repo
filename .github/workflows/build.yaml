@@ -10,11 +10,14 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { os: ubuntu-20.04, cc: clang-12, cxx: clang++-12 }
-          - { os: ubuntu-20.04, cc: gcc-10, cxx: g++-10 }
-          - { os: macos-10.15, cc: clang, cxx: clang++ }
-          - { os: windows-2019 }
+          - { os: ubuntu-22.04, profile: ubuntu-22.04-clang, }
+          - { os: ubuntu-20.04, profile: ubuntu-20.04-clang, }
+          - { os: macos-10.15, profile: macos-10.15-clang, }
+          - { os: windows-2019, profile: windows-2019-msvc, }
     steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
       - name: set up python 3.8
         uses: actions/setup-python@v4
         with:
@@ -28,6 +31,7 @@ jobs:
           conan remote add conancenter: https://center.conan.io
           conan config set general.revisions_enabled=1
           conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
+          mv profiles/${{ matrix.config.profile }} .conan/profiles/default
 
       - name: cache
         uses: actions/cache@v3
@@ -35,12 +39,9 @@ jobs:
           path: |
             ~/.conan/data
             C:/Users/runneradmin/.conan/data
-          key: ${{ matrix.config.os }}-${{ matrix.config.cxx }}-rev17
+          key: ${{ matrix.config.os }}-rev1
           restore-keys: |
-            ${{ matrix.config.os }}-${{ matrix.config.cxx }}-
-
-      - name: checkout
-        uses: actions/checkout@v3
+            ${{ matrix.config.os }}-
 
       - run: conan export recipes/fontforge/conanfile.py
       - run: conan export recipes/libuninameslist/conanfile.py
