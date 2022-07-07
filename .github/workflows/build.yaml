@@ -31,27 +31,21 @@ jobs:
 
       - name: checkout
         uses: actions/checkout@v2
-      
-      - name: conan export
-        run: |
-          conan export recipes/fontforge/conanfile.py
-          conan export recipes/libuninameslist/conanfile.py
-          conan export recipes/pdf2htmlEX/conanfile.py
-          conan export recipes/poppler/conanfile.py
-          conan export recipes/spiro/conanfile.py
-      
-      - name: conan create
-        run: |
-          conan create recipes/fontforge/conanfile.py
-          conan create recipes/libuninameslist/conanfile.py
-          conan create recipes/pdf2htmlEX/conanfile.py
-          conan create recipes/poppler/conanfile.py
-          conan create recipes/spiro/conanfile.py
-      
-      - name: conan upload
-        run: |
-          conan upload fontforge -r odr-conan-repo -c
-          conan upload libuninameslist -r odr-conan-repo -c
-          conan upload pdf2htmlEX -r odr-conan-repo -c
-          conan upload poppler -r odr-conan-repo -c
-          conan upload spiro -r odr-conan-repo -c
+
+      - run: conan export recipes/fontforge/conanfile.py
+      - run: conan export recipes/libuninameslist/conanfile.py
+      - run: conan export recipes/pdf2htmlEX/conanfile.py
+      - run: conan export recipes/poppler/conanfile.py
+      - run: conan export recipes/spiro/conanfile.py
+
+      - run: conan create --build=missing recipes/fontforge/conanfile.py
+      - run: conan create --build=missing recipes/libuninameslist/conanfile.py
+      - run: conan create --build=missing recipes/pdf2htmlEX/conanfile.py
+      - run: conan create --build=missing recipes/poppler/conanfile.py
+      - run: conan create --build=missing recipes/spiro/conanfile.py
+
+      - run: conan upload fontforge -r odr-conan-repo -c
+      - run: conan upload libuninameslist -r odr-conan-repo -c
+      - run: conan upload pdf2htmlEX -r odr-conan-repo -c
+      - run: conan upload poppler -r odr-conan-repo -c
+      - run: conan upload spiro -r odr-conan-repo -c
