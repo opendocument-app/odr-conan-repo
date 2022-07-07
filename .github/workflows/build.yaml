@@ -60,3 +60,9 @@ jobs:
       - run: conan create --build=missing recipes/pdf2htmlEX/conanfile.py
 
       - run: conan upload pdf2htmlEX -r odr-conan-repo -c
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: debug
+          path: C:/Users/runneradmin/.conan
