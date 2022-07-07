@@ -7,10 +7,10 @@
 +#include "poppler/Error.h"
 +
  extern "C" {
- #    include <jpeglib.h>
+ #include <jpeglib.h>
  }
 
--#    include "poppler/Error.h"
+-#include "poppler/Error.h"
 -
  struct JpegWriterPrivate
  {
