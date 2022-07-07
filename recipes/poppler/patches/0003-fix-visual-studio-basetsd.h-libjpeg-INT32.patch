@@ -12,6 +12,5 @@
 
 -#include "poppler/Error.h"
 -
- struct JpegWriterPrivate
- {
-     bool progressive;
+struct JpegWriterPrivate {
+  bool progressive;
