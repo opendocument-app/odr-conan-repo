@@ -31,6 +31,7 @@ jobs:
           conan remote add conancenter: https://center.conan.io
           conan config set general.revisions_enabled=1
           conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
+          conan profile new default --detect
           mv profiles/${{ matrix.config.profile }} .conan/profiles/default
 
       - name: cache
