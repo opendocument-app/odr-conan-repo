@@ -47,9 +47,9 @@ jobs:
           path: |
             ~/.conan/data
             C:/Users/runneradmin/.conan/data
-          key: ${{ matrix.config.os }}-rev1
+          key: ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-rev2
           restore-keys: |
-            ${{ matrix.config.os }}-
+            ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-
 
       - run: conan export recipes/fontforge/conanfile.py
       - run: conan export recipes/libuninameslist/conanfile.py
