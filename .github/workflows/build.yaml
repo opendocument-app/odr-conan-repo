@@ -35,6 +35,7 @@ jobs:
         with:
           path: |
             ~/.conan/data
+            C:/.conan
             C:/Users/runneradmin/.conan/data
           key: ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-rev1
           restore-keys: |
@@ -62,4 +63,4 @@ jobs:
         if: failure()
         with:
           name: debug
-          path: C:/Users/runneradmin/.conan/data
+          path: C:/.conan
