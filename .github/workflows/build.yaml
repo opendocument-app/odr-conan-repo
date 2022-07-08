@@ -41,6 +41,7 @@ jobs:
             ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-
 
       - run: conan export recipes/fontforge/conanfile.py
+      - run: conan export recipes/glib/conanfile.py
       - run: conan export recipes/libuninameslist/conanfile.py
       - run: conan export recipes/pdf2htmlEX/conanfile.py
       - run: conan export recipes/poppler/conanfile.py

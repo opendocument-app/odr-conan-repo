@@ -73,7 +73,7 @@ class Pdf2htmlEXConan(ConanFile):
         "freetype/2.11.1",
 
         # resolve version conflicts
-        "glib/2.73.0",
+        "glib/2.65.3",
         "zlib/1.2.12",
     ]
 
