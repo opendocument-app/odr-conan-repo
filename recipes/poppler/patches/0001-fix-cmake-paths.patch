@@ -302,29 +302,6 @@ index a368eded..87469a81 100644
    ${POPPLER_GLIB_DISABLE_DEPRECATED}
    ${POPPLER_GLIB_DISABLE_SINGLE_INCLUDES}
  )
-@@ -39,11 +39,11 @@ set(poppler_glib_public_headers
-   poppler-structure-element.h
- )
- 
--find_program(GLIB2_MKENUMS glib-mkenums)
-+find_program(glib_MKENUMS glib-mkenums)
- 
- add_custom_command(
-   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/poppler-enums.h
--  COMMAND ${GLIB2_MKENUMS}
-+  COMMAND ${glib_MKENUMS}
-   ARGS
-     --template poppler-enums.h.template
-     ${poppler_glib_public_headers} > ${CMAKE_CURRENT_BINARY_DIR}/poppler-enums.h
-@@ -54,7 +54,7 @@ add_custom_command(
- 
- add_custom_command(
-   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/poppler-enums.c
--  COMMAND ${GLIB2_MKENUMS}
-+  COMMAND ${glib_MKENUMS}
-   ARGS
-     --template poppler-enums.c.template
-     ${poppler_glib_public_headers} > ${CMAKE_CURRENT_BINARY_DIR}/poppler-enums.c
 @@ -82,9 +82,9 @@ set(poppler_glib_SRCS
  )
  set(poppler_glib_generated_SRCS
