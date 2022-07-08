@@ -57,3 +57,9 @@ jobs:
       #    conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
 
       #- run: conan upload pdf2htmlEX -r odr-conan-repo -c
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: debug
+          path: C:/Users/runneradmin/.conan/data
