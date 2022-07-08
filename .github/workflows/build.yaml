@@ -25,21 +25,8 @@ jobs:
           python-version: 3.8
       - run: pip install conan
 
-      - name: conan setup
-        run: |
-          conan remote remove conancenter
-          conan remote add odr-conan-repo https://odr.jfrog.io/artifactory/api/conan/odr-conan
-          conan remote add conancenter: https://center.conan.io
-          conan config set general.revisions_enabled=1
-          conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
-          conan profile new default --detect
-
       - name: conan profile
-        if: startsWith(matrix.config.os, 'ubuntu') || startsWith(matrix.config.os, 'macos')
-        run: cp profiles/* ~/.conan/profiles/
-      - name: conan profile
-        if: startsWith(matrix.config.os, 'windows')
-        run: cp profiles/* C:/Users/runneradmin/.conan/profiles/
+        run: cp profiles/* "$(conan config home)/profiles"
 
       - name: cache
         uses: actions/cache@v3
@@ -47,7 +34,7 @@ jobs:
           path: |
             ~/.conan/data
             C:/Users/runneradmin/.conan/data
-          key: ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-rev2
+          key: ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-rev1
           restore-keys: |
             ${{ matrix.config.profile_build }}-${{ matrix.config.profile_host }}-
 
@@ -59,4 +46,10 @@ jobs:
 
       - run: conan create --build=missing --profile:host=${{ matrix.config.profile_host }} --profile:build=${{ matrix.config.profile_build }} recipes/pdf2htmlEX/conanfile.py
 
-      - run: conan upload pdf2htmlEX -r odr-conan-repo -c
+      #- name: conan setup
+      #  run: |
+      #    conan remote add odr-conan-repo https://odr.jfrog.io/artifactory/api/conan/odr-conan
+      #    conan config set general.revisions_enabled=1
+      #    conan user -p "${{ secrets.JFROG_PASSWORD }}" -r odr-conan-repo "${{ secrets.JFROG_USERNAME }}"
+
+      #- run: conan upload pdf2htmlEX -r odr-conan-repo -c
