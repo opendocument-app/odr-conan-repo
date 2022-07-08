@@ -70,10 +70,10 @@ class Pdf2htmlEXConan(ConanFile):
         "poppler/0.89.0",
         "fontforge/20200314",
         "cairo/1.17.2",
-        "glib/2.69.3",
         "freetype/2.11.1",
 
         # resolve version conflicts
+        "glib/2.73.0",
         "zlib/1.2.12",
     ]
 
